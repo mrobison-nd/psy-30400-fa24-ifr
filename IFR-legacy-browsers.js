@@ -149,6 +149,7 @@ var timer;
 var recall_2Clock;
 var textbox_2;
 var key_resp_3;
+var text_9;
 var end_practiceClock;
 var text_6;
 var key_resp_4;
@@ -253,6 +254,18 @@ async function experimentInit() {
   });
   
   key_resp_3 = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
+  
+  text_9 = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'text_9',
+    text: 'type each word and press ENTER to submit it',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, (- 0.3)], draggable: false, height: 0.03,  wrapWidth: undefined, ori: 0.0,
+    languageStyle: 'LTR',
+    color: new util.Color('black'),  opacity: undefined,
+    depth: -3.0 
+  });
   
   // Initialize components for Routine "end_practice"
   end_practiceClock = new util.Clock();
@@ -1132,6 +1145,7 @@ function start_recallRoutineEnd(snapshot) {
 
 var recall_2MaxDurationReached;
 var _key_resp_3_allKeys;
+var maxTime;
 var recall_2MaxDuration;
 var recall_2Components;
 function recall_2RoutineBegin(snapshot) {
@@ -1150,12 +1164,16 @@ function recall_2RoutineBegin(snapshot) {
     key_resp_3.keys = undefined;
     key_resp_3.rt = undefined;
     _key_resp_3_allKeys = [];
+    // Run 'Begin Routine' code from code_5
+    maxTime = 30;
+    
     psychoJS.experiment.addData('recall_2.started', globalClock.getTime());
     recall_2MaxDuration = null
     // keep track of which components have finished
     recall_2Components = [];
     recall_2Components.push(textbox_2);
     recall_2Components.push(key_resp_3);
+    recall_2Components.push(text_9);
     
     recall_2Components.forEach( function(thisComponent) {
       if ('status' in thisComponent)
@@ -1186,6 +1204,11 @@ function recall_2RoutineEachFrame() {
       textbox_2.setAutoDraw(true);
     }
     
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (textbox_2.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      textbox_2.setAutoDraw(false);
+    }
+    
     
     // *key_resp_3* updates
     if (t >= 0.0 && key_resp_3.status === PsychoJS.Status.NOT_STARTED) {
@@ -1199,6 +1222,11 @@ function recall_2RoutineEachFrame() {
       psychoJS.window.callOnFlip(function() { key_resp_3.clearEvents(); });
     }
     
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (key_resp_3.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      key_resp_3.status = PsychoJS.Status.FINISHED;
+        }
+      
     if (key_resp_3.status === PsychoJS.Status.STARTED) {
       let theseKeys = key_resp_3.getKeys({keyList: ['return'], waitRelease: false});
       _key_resp_3_allKeys = _key_resp_3_allKeys.concat(theseKeys);
@@ -1214,9 +1242,25 @@ function recall_2RoutineEachFrame() {
     // Run 'Each Frame' code from code_5
     currTime = timer.getTime();
     elapsed = (currTime - startTime);
+    maxTime = (30 - elapsed);
     if ((elapsed > 30)) {
         countinueRoutine = false;
         practice_recall.finished = true;
+    }
+    
+    
+    // *text_9* updates
+    if (t >= 0.0 && text_9.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      text_9.tStart = t;  // (not accounting for frame time here)
+      text_9.frameNStart = frameN;  // exact frame index
+      
+      text_9.setAutoDraw(true);
+    }
+    
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (text_9.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      text_9.setAutoDraw(false);
     }
     
     // check for quit (typically the Esc key)
@@ -1538,6 +1582,9 @@ function recallRoutineBegin(snapshot) {
     key_resp.keys = undefined;
     key_resp.rt = undefined;
     _key_resp_allKeys = [];
+    // Run 'Begin Routine' code from code_2
+    maxTime = 30;
+    
     psychoJS.experiment.addData('recall.started', globalClock.getTime());
     recallMaxDuration = null
     // keep track of which components have finished
@@ -1572,6 +1619,11 @@ function recallRoutineEachFrame() {
       textbox.setAutoDraw(true);
     }
     
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (textbox.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      textbox.setAutoDraw(false);
+    }
+    
     
     // *key_resp* updates
     if (t >= 0.0 && key_resp.status === PsychoJS.Status.NOT_STARTED) {
@@ -1585,6 +1637,11 @@ function recallRoutineEachFrame() {
       psychoJS.window.callOnFlip(function() { key_resp.clearEvents(); });
     }
     
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (key_resp.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      key_resp.status = PsychoJS.Status.FINISHED;
+        }
+      
     if (key_resp.status === PsychoJS.Status.STARTED) {
       let theseKeys = key_resp.getKeys({keyList: ['return'], waitRelease: false});
       _key_resp_allKeys = _key_resp_allKeys.concat(theseKeys);
@@ -1600,6 +1657,7 @@ function recallRoutineEachFrame() {
     // Run 'Each Frame' code from code_2
     currTime = timer.getTime();
     elapsed = (currTime - startTime);
+    maxTime = (30 - elapsed);
     if ((elapsed > 30)) {
         countinueRoutine = false;
         recall_loop.finished = true;
@@ -1613,6 +1671,11 @@ function recallRoutineEachFrame() {
       text_7.frameNStart = frameN;  // exact frame index
       
       text_7.setAutoDraw(true);
+    }
+    
+    frameRemains = 0.0 + maxTime - psychoJS.window.monitorFramePeriod * 0.75;// most of one frame period left
+    if (text_7.status === PsychoJS.Status.STARTED && t >= frameRemains) {
+      text_7.setAutoDraw(false);
     }
     
     // check for quit (typically the Esc key)
